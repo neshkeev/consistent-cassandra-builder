@@ -1,3 +1,5 @@
+[![Gitpod](https://img.shields.io/badge/Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/neshkeev/consistent-cassandra-builder)
+
 # Consistent Builder API for Cassandra
 
 ## Overview
