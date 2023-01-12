@@ -8,11 +8,13 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 @Table(value = "hotels_by_stars")
 public class HotelByStars {
+
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED, ordinal = 0, name = "stars")
     @CassandraType(type = CassandraType.Name.TINYINT)
-    private int stars;
+    private StarsLevel stars;
 
     @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED, ordinal = 1, name = "hotel_name")
     @CassandraType(type = CassandraType.Name.TEXT)
@@ -25,17 +27,17 @@ public class HotelByStars {
     public HotelByStars() {
     }
 
-    public HotelByStars(int stars, String hotelName, UUID hotelId) {
+    public HotelByStars(StarsLevel stars, String hotelName, UUID hotelId) {
         this.stars = stars;
         this.hotelName = hotelName;
         this.hotelId = hotelId;
     }
 
-    public int getStars() {
+    public StarsLevel getStars() {
         return stars;
     }
 
-    public void setStars(int stars) {
+    public void setStars(StarsLevel stars) {
         this.stars = stars;
     }
 

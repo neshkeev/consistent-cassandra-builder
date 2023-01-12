@@ -3,17 +3,18 @@ package com.github.neshkeev.papers.cassandra.factories;
 import com.github.neshkeev.papers.cassandra.domain.HotelById;
 import com.github.neshkeev.papers.cassandra.domain.HotelByStars;
 import com.github.neshkeev.papers.cassandra.domain.HotelByStation;
+import com.github.neshkeev.papers.cassandra.domain.StarsLevel;
 
 import java.util.UUID;
 
 public final class HotelFactory {
-    private final int stars;
+    private final StarsLevel stars;
     private final String description;
     private final String hotelName;
     private final String station;
     private final UUID hotelId;
 
-    private HotelFactory(final int stars,
+    private HotelFactory(final StarsLevel stars,
                          final String description,
                          final String hotelName,
                          final String station,
@@ -40,7 +41,7 @@ public final class HotelFactory {
     }
 
     public static final class Builder {
-        private int stars;
+        private StarsLevel stars;
         private String description;
         private String hotelName;
         private String station;
@@ -49,7 +50,7 @@ public final class HotelFactory {
         private Builder() {
         }
 
-        public Builder setStars(int stars) {
+        public Builder setStars(StarsLevel stars) {
             this.stars = stars;
             return this;
         }

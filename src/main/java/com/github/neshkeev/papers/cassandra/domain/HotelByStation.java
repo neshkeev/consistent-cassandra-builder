@@ -8,6 +8,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 @Table(value = "hotels_by_metro")
 public class HotelByStation {
 

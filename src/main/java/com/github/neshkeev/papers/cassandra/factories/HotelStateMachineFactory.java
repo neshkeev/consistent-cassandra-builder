@@ -3,6 +3,7 @@ package com.github.neshkeev.papers.cassandra.factories;
 import com.github.neshkeev.papers.cassandra.domain.HotelById;
 import com.github.neshkeev.papers.cassandra.domain.HotelByStars;
 import com.github.neshkeev.papers.cassandra.domain.HotelByStation;
+import com.github.neshkeev.papers.cassandra.domain.StarsLevel;
 
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public class HotelStateMachineFactory {
     public interface Present extends State {}
     public interface Absent extends State {}
 
-    private final int stars;
+    private final StarsLevel stars;
     private final String description;
     private final String hotelName;
     private final String station;
@@ -22,7 +23,7 @@ public class HotelStateMachineFactory {
     }
 
     public static Builder<Absent, Absent, Absent, Absent> builder() {
-        return new Builder<>(-1, null, null, null, null);
+        return new Builder<>(null, null, null, null, null);
     }
 
     public HotelById createHotelById() {
@@ -35,7 +36,7 @@ public class HotelStateMachineFactory {
         return new HotelByStation(station, hotelName, hotelId);
     }
 
-    private HotelStateMachineFactory(int stars, String description, String hotelName, String station, UUID hotelId) {
+    private HotelStateMachineFactory(StarsLevel stars, String description, String hotelName, String station, UUID hotelId) {
         this.stars = stars;
         this.description = description;
         this.hotelName = hotelName;
@@ -49,13 +50,13 @@ public class HotelStateMachineFactory {
             STATION_STATE extends State,
             HOTEL_NAME_STATE extends State
             > {
-        private final int stars;
+        private final StarsLevel stars;
         private final String description;
         private final String hotelName;
         private final UUID hotelId;
         private final String station;
 
-        public Builder(int stars, String description, String hotelName, UUID hotelId, String station) {
+        public Builder(StarsLevel stars, String description, String hotelName, UUID hotelId, String station) {
             this.stars = stars;
             this.description = description;
             this.hotelName = hotelName;
@@ -67,7 +68,7 @@ public class HotelStateMachineFactory {
             return new Builder<>(stars, description, hotelName, hotelId, station);
         }
 
-        public Builder<HOTEL_ID_STATE, Present, STATION_STATE, HOTEL_NAME_STATE> setStars(int stars) {
+        public Builder<HOTEL_ID_STATE, Present, STATION_STATE, HOTEL_NAME_STATE> setStars(StarsLevel stars) {
             return new Builder<>(stars, description, hotelName, hotelId, station);
         }
 
