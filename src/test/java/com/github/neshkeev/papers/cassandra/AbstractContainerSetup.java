@@ -37,7 +37,8 @@ public abstract class AbstractContainerSetup {
     public static CassandraContainer cassandra = new CassandraContainer()
             .withLogConsumer(new Slf4jLogConsumer(LOGGER))
             .withFileSystemBind(System.getProperty("user.dir") + "/scripts/setup.cql", SETUP_SCRIPT, BindMode.READ_ONLY)
-            .withExposedPorts(com.github.neshkeev.papers.cassandra.CassandraContainer.CQL_NATIVE_TRANSPORT_PORT);
+            .withExposedPorts(com.github.neshkeev.papers.cassandra.CassandraContainer.CQL_NATIVE_TRANSPORT_PORT)
+            .withInitCmd("cqlsh -f " + SETUP_SCRIPT);
 
     @BeforeAll
     public static void before() {

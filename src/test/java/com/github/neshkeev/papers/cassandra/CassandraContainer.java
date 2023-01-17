@@ -9,6 +9,7 @@ import java.time.Duration;
 
 public class CassandraContainer extends GenericContainer<CassandraContainer> {
     public static final int CQL_NATIVE_TRANSPORT_PORT = 9042;
+    private String[] cmd;
 
     public CassandraContainer() {
         super(DockerImageName.parse("cassandra:4.0"));
@@ -23,10 +24,15 @@ public class CassandraContainer extends GenericContainer<CassandraContainer> {
         return getHost() + ":" + getMappedPort(CQL_NATIVE_TRANSPORT_PORT);
     }
 
+    public CassandraContainer withInitCmd(String cmd) {
+        this.cmd = cmd.split(" ");
+        return self();
+    }
+
     @Override
     protected void containerIsStarted(InspectContainerResponse containerInfo) {
         try {
-            execInContainer("cqlsh", "-f", "/mnt/scripts/setup.cql");
+            execInContainer(cmd);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
